@@ -1,13 +1,16 @@
 import './App.css';
-import { generateLetter } from './gameFunctions/generateLetter';
+import {
+  generateLetter,
+  generateWordLength,
+} from './gameFunctions/gameFunctions';
 
 function App() {
-  const res = [];
-  for (let i = 0; i < 100; i++) {
-    const letter = generateLetter();
-    res.push(letter);
-  }
-  console.log(res.sort());
+  // const res = [];
+  // for (let i = 0; i < 100; i++) {
+  //   const letter = generateWordLength();
+  //   res.push(letter);
+  // }
+  // console.log(res.sort());
   return (
     <div className="App">
       <header className="App-header">
