@@ -9,7 +9,7 @@ import { wordExists } from 'word-exists';
 import { getWordStatus, checkGuess } from './gameSlice';
 
 function Game() {
-  // const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(60);
   const [gameStatus, setGameStatus] = useState(true);
   const [wordLength, setWordLength] = useState(0);
   const [firstLetter, setFirstLetter] = useState('');
@@ -33,6 +33,7 @@ function Game() {
               res.data ? setGuessList([...guessList, guess]) : null
             );
         } catch (err) {
+          setMessage('Not a word');
           console.log(err);
         }
       } else {
@@ -48,23 +49,40 @@ function Game() {
     setWordLength(generateWordLength());
   }, []);
 
+  const countdown = () => {
+    if (timer > 0) {
+      setTimer(timer - 1);
+    } else {
+      setGameStatus(false);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(countdown, 1000);
+  });
+
+  // const playAgain = () => {
+  //   setTimer(60);
+  //   setGameStatus(true);
+  // };
+
   return (
     <div className="App">
-      <div>
-        <Timer />
-      </div>
-      {/* <button onClick={() => handleClick()}>timer</button> */}
+      <div>{timer}</div>
       <div>{gameStatus ? 'GAME ON' : 'GAME OVER'}</div>
-      <div>{firstLetter}</div>
-      <div>{wordLength}</div>
+      <div>First letter: {firstLetter}</div>
+      <div>Word length: {wordLength}</div>
       <form onSubmit={handleGuess}>
-        <input onChange={(e) => setGuess(e.target.value)}></input>
+        <input
+          onChange={(e) => setGuess(e.target.value)}
+          disabled={!gameStatus}
+        ></input>
       </form>
       <div>{message}</div>
+      {/* <button onClick={playAgain}>Play Again</button> */}
       <ul>
-        {guessList.map((_guess) => {
-          console.log(_guess);
-          return <li>{_guess}</li>;
+        {guessList.map((_guess, idx) => {
+          return <li key={idx}>{_guess}</li>;
         })}
       </ul>
     </div>
