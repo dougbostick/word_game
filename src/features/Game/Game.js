@@ -14,6 +14,8 @@ function Game() {
   const [guessList, setGuessList] = useState([]);
   const timer = useSelector(getTimer);
 
+  console.log('timer', timer);
+
   const handleGuess = (guessInput) => {
     guessInput.preventDefault();
     setGuessList([...guessList, guess]);
@@ -34,13 +36,13 @@ function Game() {
       <form onSubmit={handleGuess}>
         <input onChange={(e) => setGuess(e.value)}></input>
       </form>
-
+      {/* 
       <ul>
         {guessList.map((_guess) => {
           console.log(_guess);
           return <li>{_guess}</li>;
         })}
-      </ul>
+      </ul> */}
     </div>
   );
 }

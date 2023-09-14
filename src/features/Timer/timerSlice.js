@@ -13,7 +13,7 @@ export const timerSlice = createSlice({
   },
 });
 
-export const getTimer = (state) => state;
+export const getTimer = (state) => state.timer;
 
 export const { oneSecond, resetTimer } = timerSlice.actions;
 export default timerSlice.reducer;

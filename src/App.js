@@ -1,6 +1,6 @@
 import './App.css';
 import { generateLetter, generateWordLength } from './gameFunctions';
-import { Timer } from './features/Timer/Timer';
+import Timer from './features/Timer/Timer';
 
 import Game from './features/Game/Game';
 
