@@ -15,24 +15,31 @@ function Game() {
   const [firstLetter, setFirstLetter] = useState('');
   const [guess, setGuess] = useState('');
   const [guessList, setGuessList] = useState([]);
+  const [message, setMessage] = useState('');
   const dispatch = useDispatch();
   // const timer = useSelector(getTimer);
 
   const handleGuess = async (guessInput) => {
     guessInput.preventDefault();
     console.log('guess', guess);
-
-    try {
-      const isWord = await axios
-        .get(`https://api.dictionaryapi.dev/api/v2/entries/en/${guess}`)
-        .then((res) => (res.data ? setGuessList([...guessList, guess]) : null));
-      // dispatch(checkGuess(guess)).then((res) => console.log('front end', res));
-      // console.log('isword', isWord);
-      // if (isWord.data) {
-      //   setGuessList([...guessList, guess]);
-      // }
-    } catch (err) {
-      console.log(err);
+    //check to see if word meets game criteria
+    if (guess[0].toUpperCase() === firstLetter) {
+      if (guess.length === wordLength) {
+        try {
+          //check to see if word exists
+          await axios
+            .get(`https://api.dictionaryapi.dev/api/v2/entries/en/${guess}`)
+            .then((res) =>
+              res.data ? setGuessList([...guessList, guess]) : null
+            );
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        setMessage('Incorrect word length');
+      }
+    } else {
+      setMessage('Incorrect first letter');
     }
   };
 
@@ -53,7 +60,7 @@ function Game() {
       <form onSubmit={handleGuess}>
         <input onChange={(e) => setGuess(e.target.value)}></input>
       </form>
-
+      <div>{message}</div>
       <ul>
         {guessList.map((_guess) => {
           console.log(_guess);
