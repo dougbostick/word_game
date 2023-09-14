@@ -1,9 +1,12 @@
 import '../../App.css';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import { generateLetter, generateWordLength } from '../../gameFunctions';
-// import { Timer } from './features/Timer/Timer';
+import Timer from '../Timer/Timer';
 import { useState, useEffect } from 'react';
 import { getTimer } from '../Timer/timerSlice';
+import { wordExists } from 'word-exists';
+import { getWordStatus, checkGuess } from './gameSlice';
 
 function Game() {
   // const [timer, setTimer] = useState(60);
@@ -12,13 +15,25 @@ function Game() {
   const [firstLetter, setFirstLetter] = useState('');
   const [guess, setGuess] = useState('');
   const [guessList, setGuessList] = useState([]);
-  const timer = useSelector(getTimer);
+  const dispatch = useDispatch();
+  // const timer = useSelector(getTimer);
 
-  console.log('timer', timer);
-
-  const handleGuess = (guessInput) => {
+  const handleGuess = async (guessInput) => {
     guessInput.preventDefault();
-    setGuessList([...guessList, guess]);
+    console.log('guess', guess);
+
+    try {
+      const isWord = await axios
+        .get(`https://api.dictionaryapi.dev/api/v2/entries/en/${guess}`)
+        .then((res) => (res.data ? setGuessList([...guessList, guess]) : null));
+      // dispatch(checkGuess(guess)).then((res) => console.log('front end', res));
+      // console.log('isword', isWord);
+      // if (isWord.data) {
+      //   setGuessList([...guessList, guess]);
+      // }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -28,21 +43,23 @@ function Game() {
 
   return (
     <div className="App">
-      <div>{timer}</div>
+      <div>
+        <Timer />
+      </div>
       {/* <button onClick={() => handleClick()}>timer</button> */}
       <div>{gameStatus ? 'GAME ON' : 'GAME OVER'}</div>
       <div>{firstLetter}</div>
       <div>{wordLength}</div>
       <form onSubmit={handleGuess}>
-        <input onChange={(e) => setGuess(e.value)}></input>
+        <input onChange={(e) => setGuess(e.target.value)}></input>
       </form>
-      {/* 
+
       <ul>
         {guessList.map((_guess) => {
           console.log(_guess);
           return <li>{_guess}</li>;
         })}
-      </ul> */}
+      </ul>
     </div>
   );
 }

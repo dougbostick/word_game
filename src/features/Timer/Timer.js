@@ -1,20 +1,27 @@
 import { useState, useEffect } from 'react';
 import { oneSecond, resetTimer } from './timerSlice';
+import { getTimer } from './timerSlice';
+import { useSelector } from 'react-redux';
 
-export const Timer = () => {
-  // const [timer, setTimer] = useState(60);
+const Timer = () => {
+  const timer = useSelector(getTimer);
 
-  // const countdown = () => {
-  //   if (timer > 0) {
-  //     setTimer(timer - 1);
-  //   } else {
-  //     setGameStatus(false);
-  //   }
-  // };
+  const countdown = () => {
+    console.log('countdown');
+    if (timer > 0) {
+      oneSecond();
+    } else {
+      // setGameStatus(false);
+      console.log('ok');
+    }
+  };
 
-  // useEffect(() => {
-  //   setTimeout(countdown, 1000);
-  // });
+  useEffect(() => {
+    console.log('timer useEffect');
+    setTimeout(countdown, 1000);
+  });
 
-  return <div>Timer</div>;
+  return <div>{timer}</div>;
 };
+
+export default Timer;
