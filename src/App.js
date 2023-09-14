@@ -2,7 +2,6 @@ import './App.css';
 import {
   generateLetter,
   generateWordLength,
-  countDown,
 } from './gameFunctions/gameFunctions';
 
 import { useState, useEffect } from 'react';
@@ -10,21 +9,12 @@ import { useState, useEffect } from 'react';
 function App() {
   const [timer, setTimer] = useState(60);
   const [gameStatus, setGameStatus] = useState(true);
-  // const res = [];
-  // for (let i = 0; i < 100; i++) {
-  //   const letter = generateWordLength();
-  //   res.push(letter);
-  // }
-  // console.log(res.sort());
+  const [wordLength, setWordLength] = useState(0);
+  const [firstLetter, setFirstLetter] = useState('');
+  const [guess, setGuess] = useState('');
+  const [guessList, setGuessList] = useState([]);
 
-  // setTimer(countDown(timer));
-  // const countDown = (timer) => {
-  //   console.log('running');
-  //   while (timer > 0) {
-  //     setTimer(timer - 1);
-  //   }
-  // };
-  const handleClick = () => {
+  const countdown = () => {
     if (timer > 0) {
       setTimer(timer - 1);
     } else {
@@ -32,15 +22,31 @@ function App() {
     }
   };
 
+  const handleGuess = (guessInput) => {
+    guessInput.preventDefault();
+
+    setGuessList([...guessList, guess]);
+  };
+
   useEffect(() => {
-    setTimeout(handleClick, 1000);
+    setTimeout(countdown, 1000);
   });
+
+  useEffect(() => {
+    setFirstLetter(generateLetter());
+    setWordLength(generateWordLength());
+  }, []);
 
   return (
     <div className="App">
       <div>{timer}</div>
       {/* <button onClick={() => handleClick()}>timer</button> */}
       <div>{gameStatus ? 'GAME ON' : 'GAME OVER'}</div>
+      <div>{firstLetter}</div>
+      <div>{wordLength}</div>
+      <form onSubmit={handleGuess}>
+        <input onChange={(e) => setGuess(e.value)}></input>
+      </form>
     </div>
   );
 }
