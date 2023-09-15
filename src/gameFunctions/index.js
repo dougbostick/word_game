@@ -6,7 +6,7 @@ export const generateLetter = () => {
 };
 
 export const generateWordLength = () => {
-  return Math.floor(Math.random() * 6 + 3);
+  return Math.floor(Math.random() * 4 + 3);
 };
 
 export const countDown = (num) => {

@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { generateLetter, generateWordLength } from '../../gameFunctions';
 import Timer from '../Timer/Timer';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getTimer } from '../Timer/timerSlice';
 import { wordExists } from 'word-exists';
 import { getWordStatus, checkGuess } from './gameSlice';
 
 function Game() {
   const [timer, setTimer] = useState(60);
+  const [intervalId, setIntervalId] = useState(null);
   const [gameStatus, setGameStatus] = useState(true);
   const [wordLength, setWordLength] = useState(0);
   const [firstLetter, setFirstLetter] = useState('');
@@ -50,16 +51,25 @@ function Game() {
   }, []);
 
   const countdown = () => {
+    console.log('countdown', timer);
     if (timer > 0) {
+      console.log('if');
       setTimer(timer - 1);
     } else {
+      console.log('else');
       setGameStatus(false);
+      clearInterval(intervalId);
     }
   };
+  const test = useRef(countdown);
 
   useEffect(() => {
-    setTimeout(countdown, 1000);
-  });
+    test.current = countdown;
+  }, [timer]);
+
+  const startGame = () => {
+    setIntervalId(setInterval(() => test.current(), 1000));
+  };
 
   // const playAgain = () => {
   //   setTimer(60);
@@ -76,9 +86,10 @@ function Game() {
         <input
           onChange={(e) => setGuess(e.target.value)}
           disabled={!gameStatus}
-        ></input>
+        />
       </form>
       <div>{message}</div>
+      <button onClick={startGame}>START</button>
       {/* <button onClick={playAgain}>Play Again</button> */}
       <ul>
         {guessList.map((_guess, idx) => {
