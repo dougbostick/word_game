@@ -1,4 +1,4 @@
-import '../../App.css';
+import '../../App.scss';
 import axios from 'axios';
 import { generateLetter, generateWordLength } from '../../gameFunctions';
 import { useState, useEffect, useRef } from 'react';
@@ -54,9 +54,10 @@ function Game() {
 
   const endGame = () => {
     setGameStatus(false);
-    setFirstLetter('???');
-    setWordLength('???');
+    // setFirstLetter('???');
+    // setWordLength('???');
     setGuess('');
+    setMessage('Good Game!');
     clearInterval(intervalId);
   };
 
@@ -85,16 +86,34 @@ function Game() {
     setScore(0);
     setGuessList({});
     setGuess('');
+    setMessage('');
     setFirstLetter(generateLetter());
     setWordLength(generateWordLength());
   };
 
   return (
     <div className="App">
-      <div>{timer}</div>
-      <div>First letter: {firstLetter}</div>
-      <div>Word length: {wordLength}</div>
-      <div>Score: {score}</div>
+      <h1>Word Game</h1>
+      <div className="row">
+        <div>
+          First letter:
+          <div className="box">{firstLetter}</div>
+        </div>
+        <div>
+          Timer
+          <div className="box">{timer}</div>
+        </div>
+        <div>
+          Word length:
+          <div className="box">{wordLength}</div>
+        </div>
+      </div>
+      <div className="row score">
+        <div>
+          Score:
+          <div className="box">{score}</div>
+        </div>
+      </div>
       <form onSubmit={handleGuess}>
         <input
           onChange={(e) => setGuess(e.target.value)}
@@ -102,7 +121,7 @@ function Game() {
           value={guess}
         />
       </form>
-      <div>{message}</div>
+      <div className="message">{message}</div>
       {!gameStatus && (
         <button onClick={startGame}>
           {timer > 0 ? 'START' : 'PLAY AGAIN'}

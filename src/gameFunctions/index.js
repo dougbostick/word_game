@@ -1,7 +1,7 @@
 export const generateLetter = () => {
   //no one wants to guess with Q, X, Y, and Z
   const alphabet = 'ABCDEFGHIJKLMNOPRSTUVW';
-  const randomNum = Math.floor(Math.random() * 26);
+  const randomNum = Math.floor(Math.random() * 22);
   const randomLetter = alphabet[randomNum];
   return randomLetter;
 };
