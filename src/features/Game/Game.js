@@ -1,66 +1,72 @@
 import '../../App.css';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
 import { generateLetter, generateWordLength } from '../../gameFunctions';
-import Timer from '../Timer/Timer';
 import { useState, useEffect, useRef } from 'react';
-import { getTimer } from '../Timer/timerSlice';
-import { wordExists } from 'word-exists';
-import { getWordStatus, checkGuess } from './gameSlice';
 
 function Game() {
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(30);
+  const [score, setScore] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
-  const [gameStatus, setGameStatus] = useState(true);
-  const [wordLength, setWordLength] = useState(0);
-  const [firstLetter, setFirstLetter] = useState('');
+  const [gameStatus, setGameStatus] = useState(false);
+  const [wordLength, setWordLength] = useState('???');
+  const [firstLetter, setFirstLetter] = useState('???');
   const [guess, setGuess] = useState('');
-  const [guessList, setGuessList] = useState([]);
+  const [guessList, setGuessList] = useState({});
   const [message, setMessage] = useState('');
-  const dispatch = useDispatch();
-  // const timer = useSelector(getTimer);
 
-  const handleGuess = async (guessInput) => {
-    guessInput.preventDefault();
-    console.log('guess', guess);
-    //check to see if word meets game criteria
-    if (guess[0].toUpperCase() === firstLetter) {
-      if (guess.length === wordLength) {
-        try {
-          //check to see if word exists
-          await axios
-            .get(`https://api.dictionaryapi.dev/api/v2/entries/en/${guess}`)
-            .then((res) =>
-              res.data ? setGuessList([...guessList, guess]) : null
-            );
-        } catch (err) {
-          setMessage('Not a word');
-          console.log(err);
-        }
-      } else {
-        setMessage('Incorrect word length');
-      }
-    } else {
+  const handleGuess = async (e) => {
+    console.log(guess, guessList);
+    e.preventDefault();
+    //check to see if word has been guessed already
+    if (guess.length === 0) return;
+    if (guessList[guess]) {
+      setMessage('Already guessed');
+      return;
+    }
+    //check first letter of guess is correct
+    if (guess[0].toUpperCase() !== firstLetter) {
       setMessage('Incorrect first letter');
+      return;
+    }
+    //check to see if guess if proper length
+    if (guess.length !== wordLength) {
+      setMessage('Incorrect word length');
+      return;
+    }
+    try {
+      //check to see if word exists
+      await axios
+        .get(`https://api.dictionaryapi.dev/api/v2/entries/en/${guess}`)
+        .then((res) => {
+          if (res.data) {
+            //add guess to guessList
+            setGuessList({ ...guessList, [guess]: true });
+            setScore(score + 1);
+            setGuess('');
+          }
+        });
+    } catch (err) {
+      //if word doesn't exist, the api call fails
+      setMessage('Not a word');
     }
   };
 
-  useEffect(() => {
-    setFirstLetter(generateLetter());
-    setWordLength(generateWordLength());
-  }, []);
+  const endGame = () => {
+    setGameStatus(false);
+    setFirstLetter('???');
+    setWordLength('???');
+    setGuess('');
+    clearInterval(intervalId);
+  };
 
   const countdown = () => {
-    console.log('countdown', timer);
     if (timer > 0) {
-      console.log('if');
       setTimer(timer - 1);
     } else {
-      console.log('else');
-      setGameStatus(false);
-      clearInterval(intervalId);
+      endGame();
     }
   };
+
   const test = useRef(countdown);
 
   useEffect(() => {
@@ -68,31 +74,43 @@ function Game() {
   }, [timer]);
 
   const startGame = () => {
+    resetGameParams();
+    setGameStatus(true);
     setIntervalId(setInterval(() => test.current(), 1000));
   };
 
-  // const playAgain = () => {
-  //   setTimer(60);
-  //   setGameStatus(true);
-  // };
+  const resetGameParams = () => {
+    setTimer(30);
+    setScore(0);
+    setGuessList([]);
+    setGuess('');
+    // setFirstLetter(generateLetter());
+    // setWordLength(generateWordLength());
+    setFirstLetter('E');
+    setWordLength(5);
+  };
 
   return (
     <div className="App">
       <div>{timer}</div>
-      <div>{gameStatus ? 'GAME ON' : 'GAME OVER'}</div>
       <div>First letter: {firstLetter}</div>
       <div>Word length: {wordLength}</div>
+      <div>Score: {score}</div>
       <form onSubmit={handleGuess}>
         <input
           onChange={(e) => setGuess(e.target.value)}
           disabled={!gameStatus}
+          value={guess}
         />
       </form>
       <div>{message}</div>
-      <button onClick={startGame}>START</button>
-      {/* <button onClick={playAgain}>Play Again</button> */}
+      {!gameStatus && (
+        <button onClick={startGame}>
+          {timer > 0 ? 'START' : 'PLAY AGAIN'}
+        </button>
+      )}
       <ul>
-        {guessList.map((_guess, idx) => {
+        {Object.keys(guessList).map((_guess, idx) => {
           return <li key={idx}>{_guess}</li>;
         })}
       </ul>
