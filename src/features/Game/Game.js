@@ -20,6 +20,7 @@ function Game() {
     //check to see if word has been guessed already
     if (guess.length === 0) return;
     if (guessList[guess]) {
+      console.log(guessList);
       setMessage('Already guessed');
       return;
     }
@@ -82,12 +83,10 @@ function Game() {
   const resetGameParams = () => {
     setTimer(30);
     setScore(0);
-    setGuessList([]);
+    setGuessList({});
     setGuess('');
-    // setFirstLetter(generateLetter());
-    // setWordLength(generateWordLength());
-    setFirstLetter('E');
-    setWordLength(5);
+    setFirstLetter(generateLetter());
+    setWordLength(generateWordLength());
   };
 
   return (
