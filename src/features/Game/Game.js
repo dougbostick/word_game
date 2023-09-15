@@ -94,7 +94,7 @@ function Game() {
   return (
     <div className="App">
       <h1>Word Game</h1>
-      <div className="row">
+      <div className="row top">
         <div>
           First letter:
           <div className="box">{firstLetter}</div>
@@ -108,7 +108,7 @@ function Game() {
           <div className="box">{wordLength}</div>
         </div>
       </div>
-      <div className="row score">
+      <div className="row">
         <div>
           Score:
           <div className="box">{score}</div>
