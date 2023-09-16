@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 function Game() {
   const [timer, setTimer] = useState(30);
   const [score, setScore] = useState(0);
+  const [correct, setCorrect] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   const [gameStatus, setGameStatus] = useState(false);
   const [wordLength, setWordLength] = useState('???');
@@ -40,9 +41,11 @@ function Game() {
         .get(`https://api.dictionaryapi.dev/api/v2/entries/en/${guess}`)
         .then((res) => {
           if (res.data) {
-            //add guess to guessList
+            //add guess to guessList and increment score
             setGuessList({ ...guessList, [guess]: true });
             setScore(score + 1);
+            setCorrect(true);
+            setTimeout(() => setCorrect(false), 500);
             setGuess('');
           }
         });
@@ -111,7 +114,9 @@ function Game() {
       <div className="row">
         <div>
           Score
-          <div className="box">{score}</div>
+          <div className={correct ? 'box score' : 'box'}>
+            <div className="score_val">{score} </div>
+          </div>
         </div>
       </div>
       <div className="message">{message}</div>
@@ -131,7 +136,6 @@ function Game() {
           </button>
         )}
       </div>
-
       <ul>
         {Object.keys(guessList).map((_guess, idx) => {
           return <li key={idx}>{_guess}</li>;
