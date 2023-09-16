@@ -114,6 +114,7 @@ function Game() {
           <div className="box">{score}</div>
         </div>
       </div>
+      <div className="message">{message}</div>
       <div className="input_btn">
         {gameStatus ? (
           <form onSubmit={handleGuess}>
@@ -130,7 +131,7 @@ function Game() {
           </button>
         )}
       </div>
-      <div className="message">{message}</div>
+
       <ul>
         {Object.keys(guessList).map((_guess, idx) => {
           return <li key={idx}>{_guess}</li>;

@@ -11,15 +11,18 @@
 // $color4: #4fe0b6;
 
 //MATTE
-// $color1: #293556;
-// $color2: #a2d5ab;
-// $color3: #39aea9;
-// $color4: #557b83;
+$color1: #293556;
+// $color2: ;
+$color3: #39aea9;
+$color4: #557b83;
+body {
+  background-color: white;
+}
 
 .App {
   text-align: center;
   height: 100vh;
-  color: white;
+  color: black;
   margin-top: 0;
   display: flex;
   flex-direction: column;
@@ -52,7 +55,7 @@ h1 {
 
 .box {
   margin-top: 10%;
-  border: 2px solid lightcoral;
+  border: 2px solid black;
   height: 75px;
   width: 70px;
   display: flex;
@@ -69,18 +72,24 @@ input {
   background: none;
   border: none;
   outline: none;
+  color: black;
+  border-bottom: 1px solid black;
 }
 
 .message {
   font-size: 24px;
-  margin: 10px;
-  height: 5%;
+  // margin: 10px;
+  // margin-bottom: 20px;
+  height: 10%;
 }
 
 button {
   font-size: 20px;
   padding: 8px;
   font-weight: bold;
+  border: none;
+  background: none;
+  color: black;
 }
 
 .input_btn {
@@ -89,7 +98,7 @@ button {
 
 ul {
   list-style: none;
-  border: 1px solid pink;
+  // border: 1px solid pink;
   height: 35%;
   width: 60%;
   display: flex;
@@ -102,7 +111,7 @@ ul {
   li {
     font-size: 24px;
     margin: 8px;
-    border: 1px solid pink;
+    border: 1px solid black;
     width: 125px;
     padding: 5px;
     border-radius: 18px;
