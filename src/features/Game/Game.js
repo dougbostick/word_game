@@ -96,7 +96,7 @@ function Game() {
       <h1>Word Game</h1>
       <div className="row top">
         <div>
-          First letter:
+          First letter
           <div className="box">{firstLetter}</div>
         </div>
         <div>
@@ -104,29 +104,33 @@ function Game() {
           <div className="box">{timer}</div>
         </div>
         <div>
-          Word length:
+          Word length
           <div className="box">{wordLength}</div>
         </div>
       </div>
       <div className="row">
         <div>
-          Score:
+          Score
           <div className="box">{score}</div>
         </div>
       </div>
-      <form onSubmit={handleGuess}>
-        <input
-          onChange={(e) => setGuess(e.target.value)}
-          disabled={!gameStatus}
-          value={guess}
-        />
-      </form>
+      <div className="input_btn">
+        {gameStatus ? (
+          <form onSubmit={handleGuess}>
+            <input
+              onChange={(e) => setGuess(e.target.value)}
+              disabled={!gameStatus}
+              value={guess}
+              autoFocus={true}
+            />
+          </form>
+        ) : (
+          <button onClick={startGame}>
+            {timer > 0 ? 'START' : 'PLAY AGAIN'}
+          </button>
+        )}
+      </div>
       <div className="message">{message}</div>
-      {!gameStatus && (
-        <button onClick={startGame}>
-          {timer > 0 ? 'START' : 'PLAY AGAIN'}
-        </button>
-      )}
       <ul>
         {Object.keys(guessList).map((_guess, idx) => {
           return <li key={idx}>{_guess}</li>;

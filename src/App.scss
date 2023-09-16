@@ -1,33 +1,47 @@
+//TURTLE
+// $color1: #e5efc1;
+// $color2: #a2d5ab;
+// $color3: #39aea9;
+// $color4: #557b83;
+
+//AMPHIBIAN
+// $color1: #3e54d3;
+// $color2: #4f80e2;
+// $color3: #15cdca;
+// $color4: #4fe0b6;
+
+//MATTE
+// $color1: #293556;
+// $color2: #a2d5ab;
+// $color3: #39aea9;
+// $color4: #557b83;
+
 .App {
   text-align: center;
   height: 100vh;
   color: white;
   margin-top: 0;
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   // justify-content: space-around;
-  // width: 100%;
 }
 
 h1 {
-  margin-top: 5%;
-}
-/* not sure why but top row wont center properly*/
-
-.top {
-  margin-left: 2%;
+  height: 10%;
 }
 
 .row {
   display: flex;
   flex-direction: row;
+  width: 100%;
   align-items: center;
   justify-content: center;
+  height: 20%;
   div {
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 5%;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,37 +64,44 @@ h1 {
 input {
   font-size: 24px;
   text-align: center;
-  // margin-right: 2%;
   padding: 2px;
   padding-bottom: 4px;
+  background: none;
+  border: none;
+  outline: none;
 }
 
 .message {
   font-size: 24px;
-  margin: 20px;
-  // margin-right: 4%;
-  // text-align: center;
+  margin: 10px;
+  height: 5%;
 }
 
 button {
   font-size: 20px;
   padding: 8px;
   font-weight: bold;
-  // margin-right: 2%;
+}
+
+.input_btn {
+  height: 10%;
 }
 
 ul {
   list-style: none;
-  // border: 1px solid pink;
-  margin-right: 5%;
+  border: 1px solid pink;
+  height: 35%;
+  width: 60%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding: 0;
+  overflow: scroll;
   li {
     font-size: 24px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin: 8px;
     border: 1px solid pink;
     width: 125px;
     padding: 5px;
