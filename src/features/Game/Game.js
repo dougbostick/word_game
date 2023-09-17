@@ -14,15 +14,32 @@ function Game() {
   const [guess, setGuess] = useState('');
   const [guessList, setGuessList] = useState({});
   const [message, setMessage] = useState('');
+  const [repeatedWord, setRepeatedWord] = useState('');
+  const ref = useRef(null);
 
+  useEffect(() => {
+    const renderedGuessList = ref.current;
+    const guessArray = renderedGuessList.querySelectorAll('li');
+    guessArray.length
+      ? guessArray.forEach((guessLi) => {
+          if (guessLi.innerHTML === repeatedWord) {
+            guessLi.className = 'wrong';
+            setTimeout(() => {
+              guessLi.className = '';
+            }, 500);
+          }
+        })
+      : console.log('none');
+  }, [repeatedWord]);
   const handleGuess = async (e) => {
-    console.log(guess, guessList);
+    // console.log(guess, guessList);
     e.preventDefault();
     //check to see if word has been guessed already
     if (guess.length === 0) return;
     if (guessList[guess]) {
       console.log(guessList);
       setMessage('Already guessed');
+      setRepeatedWord(guess);
       return;
     }
     //check first letter of guess is correct
@@ -115,7 +132,9 @@ function Game() {
         <div>
           Score
           <div className={correct ? 'box score' : 'box'}>
-            <div className="score_val">{score} </div>
+            <span className={correct ? 'score_val_score' : 'score_val'}>
+              {score}
+            </span>
           </div>
         </div>
       </div>
@@ -136,7 +155,7 @@ function Game() {
           </button>
         )}
       </div>
-      <ul>
+      <ul ref={ref}>
         {Object.keys(guessList).map((_guess, idx) => {
           return <li key={idx}>{_guess}</li>;
         })}
