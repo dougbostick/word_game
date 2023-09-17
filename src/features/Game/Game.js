@@ -17,29 +17,37 @@ function Game() {
   const [repeatedWord, setRepeatedWord] = useState('');
   const ref = useRef(null);
 
+  const clearClassName = (node) => {
+    console.log('clear', node);
+    node.className = '';
+    return node;
+  };
+
   useEffect(() => {
     const renderedGuessList = ref.current;
     const guessArray = renderedGuessList.querySelectorAll('li');
     guessArray.length
       ? guessArray.forEach((guessLi) => {
           if (guessLi.innerHTML === repeatedWord) {
+            console.log(guessLi.innerHTML);
             guessLi.className = 'wrong';
-            setTimeout(() => {
-              guessLi.className = '';
-            }, 500);
+            setTimeout(() => clearClassName(guessLi), 500);
           }
         })
       : console.log('none');
   }, [repeatedWord]);
+
   const handleGuess = async (e) => {
-    // console.log(guess, guessList);
     e.preventDefault();
     //check to see if word has been guessed already
     if (guess.length === 0) return;
     if (guessList[guess]) {
-      console.log(guessList);
+      console.log('already guessed', repeatedWord);
       setMessage('Already guessed');
       setRepeatedWord(guess);
+      console.log('already guessed2', repeatedWord);
+
+      // setTimeout(() => setRepeatedWord(''), 100);
       return;
     }
     //check first letter of guess is correct
