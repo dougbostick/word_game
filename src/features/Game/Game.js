@@ -123,7 +123,7 @@ function Game() {
 
   return (
     <div className="App">
-      <h1>Word Game</h1>
+      <h1>WORD RUSH</h1>
       <div className="row top">
         <div>
           First letter
