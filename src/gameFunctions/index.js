@@ -9,3 +9,7 @@ export const generateLetter = () => {
 export const generateWordLength = () => {
   return Math.floor(Math.random() * 3 + 4);
 };
+
+const test = () => {
+  return "i can't believe i had the wrong email associated with my github account";
+};
