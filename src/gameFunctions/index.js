@@ -7,5 +7,5 @@ export const generateLetter = () => {
 };
 
 export const generateWordLength = () => {
-  return Math.floor(Math.random() * 5 + 2);
+  return Math.floor(Math.random() * 3 + 4);
 };
