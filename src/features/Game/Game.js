@@ -2,6 +2,8 @@ import '../../App.scss';
 import axios from 'axios';
 import { generateLetter, generateWordLength } from '../../gameFunctions';
 import { useState, useEffect, useRef } from 'react';
+import logo from '../assets/wordrushlogo.png';
+import ding from '../assets/ding.mp3';
 
 function Game() {
   const [timer, setTimer] = useState(30);
@@ -17,6 +19,10 @@ function Game() {
     'Guess words with the correct first letter and length'
   );
   const [repeatedWord, setRepeatedWord] = useState('');
+
+  const sound = () => {
+    new Audio(ding).play();
+  };
 
   const handleGuess = async (e) => {
     e.preventDefault();
@@ -47,6 +53,7 @@ function Game() {
             //add guess to guessList and increment score
             setGuessList({ ...guessList, [guess]: true });
             setScore(score + 1);
+            sound();
             setCorrect(true);
             setTimeout(() => setCorrect(false), 500);
             setGuess('');
@@ -99,7 +106,8 @@ function Game() {
 
   return (
     <div className="App">
-      <h1>WORD RUSH</h1>
+      {/* <h1>WORD RUSH</h1> */}
+      <img src={logo} alt="logo" />
       <div className="row top">
         <div>
           First letter
