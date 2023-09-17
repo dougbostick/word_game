@@ -13,7 +13,9 @@ function Game() {
   const [firstLetter, setFirstLetter] = useState('???');
   const [guess, setGuess] = useState('');
   const [guessList, setGuessList] = useState({});
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(
+    'Guess words with the correct first letter and length'
+  );
   const [repeatedWord, setRepeatedWord] = useState('');
   const ref = useRef(null);
 
