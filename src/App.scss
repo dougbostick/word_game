@@ -89,7 +89,7 @@ button {
   font-weight: bold;
   // border: none;
   border: 2px solid black;
-  background-color: yellow;
+  background-color: rgb(97, 210, 255);
   color: black;
   border-radius: 18px;
   letter-spacing: 2px;
@@ -99,7 +99,7 @@ button {
 button:hover {
   transition: 0.15s;
   background-color: black;
-  color: yellow;
+  color: rgb(97, 210, 255);
 }
 
 button:active {
