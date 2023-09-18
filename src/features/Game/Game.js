@@ -55,6 +55,7 @@ function Game() {
             //add guess to guessList and increment score
             setGuessList({ ...guessList, [guess]: true });
             setScore(score + 1);
+            setMessage('');
             sound();
             setCorrect(true);
             setTimeout(() => setCorrect(false), 500);
