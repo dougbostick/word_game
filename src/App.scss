@@ -249,10 +249,12 @@ ul {
 
 //max-width: 605px;
 @media (max-width: 600px) {
+  button {
+    margin-top: 18px;
+  }
   .mobile_btn {
     display: block;
     width: 40%;
-    margin-top: 18px;
   }
   .message {
     font-size: 24px;
