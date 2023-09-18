@@ -10,11 +10,6 @@
 // $color3: #15cdca;
 // $color4: #4fe0b6;
 
-//MATTE
-$color1: #293556;
-// $color2: ;
-$color3: #39aea9;
-$color4: #557b83;
 body {
   background-color: white;
 }
@@ -27,17 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: space-around;
 }
-
-// h1 {
-//   height: 10%;
-//   letter-spacing: 2px;
-//   font-weight: bold;
-//   // color: rgb(1, 123, 172);
-//   // -webkit-text-stroke: 1px black;
-//   // text-shadow: -1px 0 black, 0 2px black, 2px 0 black, 0 -1px black;
-// }
 
 img {
   width: 40%;
@@ -90,7 +75,6 @@ input {
 
 .message {
   font-size: 24px;
-  // margin: 10px;
   margin-bottom: 25px;
   height: 10%;
 }
@@ -99,7 +83,6 @@ button {
   font-size: 20px;
   padding: 12px;
   font-weight: bold;
-  // border: none;
   border: 2px solid black;
   background-color: gold;
   color: black;
@@ -124,7 +107,6 @@ button:active {
 
 ul {
   list-style: none;
-  // border: 1px solid pink;
   height: 35%;
   width: 60%;
   display: flex;
@@ -141,7 +123,6 @@ ul {
     padding: 5px;
     border-radius: 18px;
     padding-bottom: 8px;
-    // animation: grow 0.5s;
   }
 }
 
@@ -167,7 +148,6 @@ ul {
 }
 
 @keyframes pulse {
-  // box-shadow: 1px 2px 0px 1px gold, 3px 3px 0px 1px black;
   0% {
     box-shadow: 0px 0px 5px 1px rgb(255, 215, 0), 1px 2px 0px 1px gold,
       3px 3px 0px 1px black;
@@ -247,7 +227,7 @@ ul {
   display: none;
 }
 
-//max-width: 605px;
+//still perfecting mobile styles, wanted to have at least something!
 @media (max-width: 600px) {
   button {
     margin-top: 18px;
@@ -258,7 +238,6 @@ ul {
   }
   .message {
     font-size: 24px;
-    // margin: 10px;
     margin-bottom: 15%;
     height: 10%;
   }
@@ -276,7 +255,6 @@ ul {
     padding: 5px;
     border-radius: 18px;
     padding-bottom: 8px;
-    // animation: grow 0.5s;
   }
 
   .mobile_btn:hover {
@@ -284,15 +262,12 @@ ul {
     color: black;
   }
   form {
-    // border: 1px solid red;
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
     margin-bottom: 10%;
   }
   .row {
-    // border: 1px solid red;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -309,8 +284,6 @@ ul {
       align-items: center;
       font-size: 22px;
       height: 140px;
-
-      // border: 1px solid red;
     }
   }
 
