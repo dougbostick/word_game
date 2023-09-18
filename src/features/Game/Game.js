@@ -21,7 +21,9 @@ function Game() {
   const [repeatedWord, setRepeatedWord] = useState('');
 
   const sound = () => {
-    new Audio(ding).play();
+    const sound = new Audio(ding);
+    sound.volume = 0.2;
+    sound.play();
   };
 
   const handleGuess = async (e) => {
