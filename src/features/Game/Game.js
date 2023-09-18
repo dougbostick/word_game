@@ -144,6 +144,7 @@ function Game() {
               value={guess}
               autoFocus={true}
             />
+            <button className="mobile_btn">+</button>
           </form>
         ) : (
           <button onClick={startGame}>

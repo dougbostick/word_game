@@ -42,6 +42,7 @@ body {
 img {
   width: 40%;
   margin-bottom: 20px;
+  max-width: 300px;
 }
 
 .row {
@@ -239,5 +240,90 @@ ul {
   }
   100% {
     font-size: 25px;
+  }
+}
+
+.mobile_btn {
+  display: none;
+}
+
+//max-width: 605px;
+@media (max-width: 600px) {
+  .mobile_btn {
+    display: block;
+    width: 40%;
+    margin-top: 18px;
+  }
+  .message {
+    font-size: 24px;
+    // margin: 10px;
+    margin-bottom: 0;
+    height: 10%;
+  }
+  ul {
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin-top: 24px;
+  }
+  li {
+    font-size: 25px;
+    margin: 0;
+    border: 1px solid black;
+    width: 125px;
+    padding: 5px;
+    border-radius: 18px;
+    padding-bottom: 8px;
+    // animation: grow 0.5s;
+  }
+
+  .mobile_btn:hover {
+    background-color: gold;
+    color: black;
+  }
+  form {
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+  }
+  .row {
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 15%;
+    div {
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-bottom: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      height: 140px;
+
+      // border: 1px solid red;
+    }
+  }
+
+  .box {
+    margin-top: 5%;
+    border: 2px solid black;
+    height: 75px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    box-shadow: 1px 2px 0px 1px gold, 3px 3px 0px 1px black;
+  }
+
+  .message {
+    width: 60%;
   }
 }
