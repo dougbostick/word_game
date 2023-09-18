@@ -22,7 +22,7 @@ function Game() {
 
   const sound = () => {
     const sound = new Audio(ding);
-    sound.volume = 0.01;
+    sound.volume = 0.001;
     sound.play();
   };
 
