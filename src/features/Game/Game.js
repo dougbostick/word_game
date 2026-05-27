@@ -1,7 +1,7 @@
 import '../../App.scss';
 import axios from 'axios';
 import { generateLetter, generateWordLength } from '../../gameFunctions';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import logo from '../assets/wordrushlogo.png';
 import ding from '../assets/ding.mp3';
 
@@ -68,28 +68,25 @@ function Game() {
     }
   };
 
-  const endGame = () => {
-    setGameStatus(false);
-    // setFirstLetter('???');
-    // setWordLength('???');
-    setGuess('');
-    setMessage('Good Game!');
-    clearInterval(intervalId);
-  };
+const endGame = useCallback(() => {
+  setGameStatus(false);
+  setGuess('');
+  setMessage('Good Game!');
+  clearInterval(intervalId);
+}, [intervalId]);
 
-  const countdown = () => {
-    if (timer > 0) {
-      setTimer(timer - 1);
-    } else {
-      endGame();
-    }
-  };
-
+const countdown = useCallback(() => {
+  if (timer > 0) {
+    setTimer(timer - 1);
+  } else {
+    endGame();
+  }
+}, [timer, endGame]);
   const test = useRef(countdown);
 
   useEffect(() => {
     test.current = countdown;
-  }, [timer]);
+  }, [countdown]);
 
   const startGame = () => {
     resetGameParams();
